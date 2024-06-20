@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,29 +13,34 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
 
-  void getData() async
-  {
-    // Get Data
-    Response response= await get("");
-    // print(response.body);
-    Map data= jsonDecode(response.body); // json se hum ek single data le skte h
-    // print(data);
-    print(data['date']);
-  }
 
-  int counter=1;
   @override
   void initstate(){
     super.initState();
-    getData();
     print("this is a init state");
   }
 
+  @override
+  void setState(fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    print('set state called');
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Home Activity"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Activity'),
+      ),
+      body: Column(
+        children: <Widget> [
+          FloatingActionButton(
+              onPressed: () {},
+          ),
+          Text('Kuch nahi')
+        ],
+      ),
     );
   }
 }

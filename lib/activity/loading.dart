@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mausam/worker/worker.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -9,6 +10,21 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+
+  void startApp() async
+  {
+    worker instance = worker(location: "delhi");
+    await instance.getData();
+    print(instance.air_speed);
+    print(instance.description);
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    startApp();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
