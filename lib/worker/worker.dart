@@ -1,58 +1,67 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class worker{
+class worker {
 
   String location;
 
   //Constructor
-  worker({required this.location})
-  {
+  worker({required this.location}) {
     location = this.location;
   }
 
-  String temp='';
-  String humidity='';
-  String air_speed='';
-  String description='';
-  String main='';
+  String temp = '';
+  String humidity = '';
+  String air_speed = '';
+  String description = '';
+  String main = '';
 
   //method
 
   Future<void> getData() async
   {
-    final Uri uri = Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=$location&appid=91a242de7c53d00339e77083c741f572');
-    final http.Response response = await http.get(uri);
-    // Response response= await get("https://api.openweathermap.org/data/2.5/weather?q=$location&appid=91a242de7c53d00339e77083c741f572");
-    Map data= jsonDecode(response.body); // json se hum ek single data le skte h
+    try{
+      final Uri uri = Uri.parse(
+          'https://api.openweathermap.org/data/2.5/weather?q=$location&appid=91a242de7c53d00339e77083c741f572');
+      final http.Response response = await http.get(uri);
+      // Response response= await get("https://api.openweathermap.org/data/2.5/weather?q=$location&appid=91a242de7c53d00339e77083c741f572");
+      Map data = jsonDecode(
+          response.body); // json se hum ek single data le skte h
 
-    //Getting Temp,Humidity,airspeed
-    Map temp_data = data['main'];
-    String getHumidity = temp_data['humidity'].toString();
-    double getTemp = temp_data['temp_data'];
+      //Getting Temp,Humidity,airspeed
+      Map temp_data = data['main'];
+      String getHumidity = temp_data['humidity'].toString();
+      double getTemp = temp_data['temp_data'];
 
-    //Getting airspeed
-    Map wind = data['wind'];
-    double getAir_speed = wind['speed'];
+      //Getting airspeed
+      Map wind = data['wind'];
+      double getAir_speed = wind['speed'];
 
 
-    //Getting Description
-    List weather_data = data['weather'];
-    Map weather_main_data = weather_data[0];
-    String getMain_des = weather_main_data['main'];
-    String getDesc = weather_main_data['description'];
+      //Getting Description
+      List weather_data = data['weather'];
+      Map weather_main_data = weather_data[0];
+      String getMain_des = weather_main_data['main'];
+      String getDesc = weather_main_data['description'];
 
-    //Assigning Values
-    temp = getTemp.toString();
-    humidity = getHumidity;
-    air_speed = getAir_speed.toString();
-    description = getDesc;
-    main = getMain_des;
-
+      //Assigning Values
+      temp = getTemp.toString();
+      humidity = getHumidity;
+      air_speed = getAir_speed.toString();
+      description = getDesc;
+      main = getMain_des;
+    }catch(e)
+    {
+      temp = "Data not found!!";
+      humidity = "Data not found!!";
+      air_speed = "Data not found!!";
+      description = "Data not found!!";
+      main = "Data not found!!";
+    }
 
   }
 
-
+}
   // void getData() async {
   //   final url = 'https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=91a242de7c53d00339e77083c741f572';
   //
@@ -72,6 +81,4 @@ class worker{
   //   }
   // }
 
-}
 
-worker instance = worker(location: 'Delhi');

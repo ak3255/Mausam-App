@@ -29,6 +29,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Map info = ModalRoute.of(context)!.settings.arguments;
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Activity'),
@@ -38,7 +42,7 @@ class _HomeState extends State<Home> {
           FloatingActionButton(
               onPressed: () {},
           ),
-          Text('Kuch nahi')
+          Text(info["temp_value"])
         ],
       ),
     );
